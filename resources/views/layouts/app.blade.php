@@ -29,7 +29,7 @@
             </div>
             <div class="pt-5 px-4">
                 <ul>
-                    <li class="px-2 py-3 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Dashboard</li>
+                    <li class="px-2 py-3 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer"><a href="/dashboard">Dashboard</a></li>
                     <li class="px-2 py-3 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Employee Management</li>
                     <li class="px-2 py-3 text-md font-semibold hover:text-purple-100 rounded-md cursor-pointer">System Management</li>
                     <li>
@@ -43,7 +43,7 @@
                     <li class="px-2 py-3 text-md font-semibold hover:text-purple-100 rounded-md cursor-pointer">User Management</li>
                     <li>
                         <ul>
-                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">User</li>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer"><a href="/users">User</a></li>
                             <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Role</li>
                             <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Permission</li>
                         </ul>
@@ -71,7 +71,7 @@
                 </div>
             </div>
             <div class="mt-1 p-4 bg-gray-100">
-                <div class="text-gray-500">
+                <div>
                     @yield('main')
                 </div>
             </div>
