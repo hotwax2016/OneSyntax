@@ -1,5 +1,4 @@
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,77 +6,76 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title')</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
+    <!--
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    -->
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
-    <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
-                </a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+    <div class="flex bg-red-300 h-screen">
+        <div class="w-2/12 bg-purple-500 text-purple-200">
+            <div class="flex justify-center items-center h-16">
+                OneSyntax
+            </div>
+            <div class="pt-5 px-4">
+                <ul>
+                    <li class="px-2 py-3 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Dashboard</li>
+                    <li class="px-2 py-3 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Employee Management</li>
+                    <li class="px-2 py-3 text-md font-semibold hover:text-purple-100 rounded-md cursor-pointer">System Management</li>
+                    <li>
+                        <ul>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Country</li>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">State</li>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">City</li>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Department</li>
+                        </ul>
+                    </li>
+                    <li class="px-2 py-3 text-md font-semibold hover:text-purple-100 rounded-md cursor-pointer">User Management</li>
+                    <li>
+                        <ul>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">User</li>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Role</li>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-purple-200 hover:text-purple-500 rounded-md cursor-pointer">Permission</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="w-10/12 bg-gray-100">
+            <div class="h-16 bg-white shadow">
+                <div class="flex justify-end items-center h-full px-8 text-purple-500">
+                    <div>
+                        @auth
+                            {{ Auth::user()->name }}
+                        @endauth
+                    </div>
+                    <div class="ml-3 cursor-pointer px-3 py-2 bg-purple-100 rounded-md hover:bg-purple-200">
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            Logout
+                        </a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav mr-auto">
-
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
-                        @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
-
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
-                                </a>
-
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </div>
                 </div>
             </div>
-        </nav>
-
-        <main class="py-4">
-            @yield('content')
-        </main>
+            <div class="mt-1 p-4 bg-gray-100">
+                <div class="text-gray-500">
+                    @yield('main')
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
