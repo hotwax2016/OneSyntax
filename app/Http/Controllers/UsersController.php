@@ -40,19 +40,20 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = request()->validate([
+            'username' => 'required|max:20',
+            'lastname' => 'required|max:60',
+            'firstname' => 'required|max:60',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|conformed'
+        ]);
+
+        $user = User::create($data);
+        
+        return redirect('/users');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -62,7 +63,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('dashboard.user.edit');
     }
 
     /**
@@ -74,7 +75,17 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $data = request()->validate([
+            'username' => 'required|max:20',
+            'lastname' => 'required|max:60',
+            'firstname' => 'required|max:60',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|conformed'
+        ]);
+
+        $user->update($data);
+        
+        return redirect('/users');
     }
 
     /**

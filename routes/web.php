@@ -23,4 +23,4 @@ Auth::routes();
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.home');
 
-Route::resource('users', UsersController::class);
+Route::resource('users', UsersController::class)->except('show');
