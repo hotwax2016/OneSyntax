@@ -8,9 +8,9 @@
     <title>Login Page</title>
 </head>
 <body>
-    <main class="bg-gray-200 h-screen">
+    <main class="bg-purple-200 h-screen">
         <div class="pt-16">
-            <h1 class="text-center text-purple-500 text-5xl font-semibold">Login to continue</h1>
+            <h1 class="text-center text-gray-400 text-5xl font-semibold">Welcome to login</h1>
         </div>
         <div class="flex justify-center">
             <div class="pt-10 w-1/3 text-gray-500">
@@ -32,13 +32,13 @@
                             @enderror
                         </div>
                         <div class="flex mt-6 px-4">
-                            <button type="submit" class="px-2 py-1 text-purple-500 font-semibold tracking-wide rounded-md border-2 border-purple-500 hover:text-purple-200 hover:bg-purple-500">Login</button>
+                            <button type="submit" class="px-2 py-1 text-purple-500 font-semibold tracking-wide rounded-md border-2 border-purple-500 border-opacity-80 hover:text-purple-200 hover:bg-purple-500">Login</button>
                             <button type="reset" class="ml-2 px-2 py-2 font-semibold tracking-wide">Clear</button>
                         </div>
                     </form>
                 </div>
                 <div class="mt-2">
-                    <h5 class="text-right text-gray-700"><a href="/password/reset">Forgot your password?</a></h5>
+                    <h5 class="text-right text-purple-500"><a href="/password/reset">Forgot your password?</a></h5>
                 </div>
             </div>
         </div>
