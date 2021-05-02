@@ -43,7 +43,7 @@ class DepartmentsController extends Controller
 
         Department::create($data);
 
-        return redirect(route('departments.index'));
+        return redirect()->back();
     }
 
     /**
@@ -95,5 +95,7 @@ class DepartmentsController extends Controller
     public function destroy(Department $department)
     {
         $department->delete();
+
+        return redirect(route('departments.index'));
     }
 }
