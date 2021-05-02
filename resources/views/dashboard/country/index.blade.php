@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-System Management
+City | System Management
 @endsection
 
 @section('main')
@@ -24,7 +24,7 @@ System Management
       <tbody  class="divide-y">
         @forelse ($countries as $country)
           <tr>
-            <td class="py-3 text-left text-gray-500 font-semibold">{{ $country->country_code }}</td>
+            <td class="py-3 text-left text-gray-500">{{ $country->country_code }}</td>
             <td class="py-3 text-left text-gray-500">{{ $country->name }}</td>
             <td class="flex justify-center items-center py-3 text-blue-500">
               <a href="/countries/{{ $country->id }}/edit">
