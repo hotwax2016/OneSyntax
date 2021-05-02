@@ -45,7 +45,7 @@ class UsersController extends Controller
             'lastname' => 'required|max:60',
             'firstname' => 'required|max:60',
             'email' => 'required|email|unique:users',
-            'password' => 'required|conformed'
+            'password' => 'required|conformed',
         ]);
 
         $user = User::create($data);
