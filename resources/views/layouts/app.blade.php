@@ -35,7 +35,7 @@
                     <li>
                         <ul>
                             <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer"><a href="/countries">Country</a></li>
-                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer">State</li>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer"><a href="/states">State</a></li>
                             <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer">City</li>
                             <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer">Department</li>
                         </ul>

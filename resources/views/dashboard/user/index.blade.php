@@ -26,9 +26,9 @@ User Management
           <th class="py-4 text-left text-gray-500" colspan="2">Actions</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody  class="divide-y">
         @forelse ($users as $user)
-          <tr class="divide-y">
+          <tr>
             <td class="py-3 text-left text-blue-500 font-semibold">{{ $user->username }}</td>
             <td class="py-3 text-left text-gray-500">{{ $user->lastname }}</td>
             <td class="py-3 text-left text-gray-500">{{ $user->firstname }}</td>

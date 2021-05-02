@@ -18,9 +18,9 @@ class State extends Model
         return $this->hasMany(Employee::class);
     }
 
-    public function country()
+    public function get_country()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class, 'country');
     }
 
     public function cities()

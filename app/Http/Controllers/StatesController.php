@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\State;
+use App\Models\Country;
 use Illuminate\Http\Request;
 
 class StatesController extends Controller
@@ -16,7 +17,7 @@ class StatesController extends Controller
     {
         $states = State::all();
 
-        return view('dashboard.state.index');
+        return view('dashboard.state.index', compact('states'));
     }
 
     /**
@@ -26,7 +27,9 @@ class StatesController extends Controller
      */
     public function create()
     {
-        return view('dashboard.state.create');
+        $countries = Country::all();
+
+        return view('dashboard.state.create', compact('countries'));
     }
 
     /**
@@ -38,13 +41,13 @@ class StatesController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'country' => 'required|max:3',
+            'country' => 'required',
             'name' => 'required|max:60'
         ]);
 
-        State::create($data);
+        Country::find(request('country'))->states()->create($data);
 
-        return redirect(route('states.index'));
+        return redirect()->back();
     }
 
     /**
@@ -66,7 +69,7 @@ class StatesController extends Controller
      */
     public function edit(State $state)
     {
-        return view('dashboard.state.edit');
+        return view('dashboard.state.edit', compact('state'));
     }
 
     /**
@@ -79,7 +82,6 @@ class StatesController extends Controller
     public function update(Request $request, State $state)
     {
         $data = request()->validate([
-            'country' => 'required|max:3',
             'name' => 'required|max:60'
         ]);
 
@@ -97,5 +99,7 @@ class StatesController extends Controller
     public function destroy(State $state)
     {
         $state->delete();
+
+        return redirect(route('states.index'));
     }
 }
