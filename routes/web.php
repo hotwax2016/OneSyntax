@@ -8,6 +8,7 @@ use App\Http\Controllers\StatesController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\EmployeesController;
+use App\Http\Controllers\ChangePasswordController;
 
 
 /*
@@ -30,6 +31,7 @@ Auth::routes();
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.home');
 
 Route::resource('users', UsersController::class)->except('show');
+Route::put('/change-password/{user}', [ChangePasswordController::class, 'changePassword']);
 Route::resource('countries', CountriesController::class);
 Route::resource('states', StatesController::class);
 Route::resource('cities', CitiesController::class);
