@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\CountriesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,4 @@ Auth::routes();
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.home');
 
 Route::resource('users', UsersController::class)->except('show');
+Route::resource('countries', CountriesController::class);
