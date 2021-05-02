@@ -38,6 +38,7 @@ class StatesController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
+            'country' => 'required|max:3',
             'name' => 'required|max:60'
         ]);
 
@@ -78,6 +79,7 @@ class StatesController extends Controller
     public function update(Request $request, State $state)
     {
         $data = request()->validate([
+            'country' => 'required|max:3',
             'name' => 'required|max:60'
         ]);
 
