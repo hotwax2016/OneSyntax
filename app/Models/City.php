@@ -18,8 +18,8 @@ class City extends Model
         return $this->hasMany(Employee::class);
     }
 
-    public function state()
+    public function get_state()
     {
-        return $this->belongsTo(State::class);
+        return $this->belongsTo(State::class, 'state');
     }
 }
