@@ -19,7 +19,11 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::withTrashed()->get();
+        if (request('username')) {
+            $users = User::where('username', request('username'))->get();
+        } else {
+            $users = User::all();
+        }
         return view('dashboard.user.index', compact('users'));
     }
 
