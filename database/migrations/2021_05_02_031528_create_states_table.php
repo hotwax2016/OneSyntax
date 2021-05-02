@@ -15,13 +15,14 @@ class CreateStatesTable extends Migration
     {
         Schema::create('states', function (Blueprint $table) {
             $table->id();
-            $table->string('country', 60);
+            $table->unsignedBigInteger('country');
+            $table->string('name', 60);
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();
 
             $table->foreign('country')
-                ->references('country_code')
+                ->references('id')
                 ->on('countries')
                 ->onDelete('cascade');
         });
