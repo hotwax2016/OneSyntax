@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\City;
+use App\Models\State;
 use Illuminate\Http\Request;
 
 class CitiesController extends Controller
@@ -26,7 +27,9 @@ class CitiesController extends Controller
      */
     public function create()
     {
-        return view('dashboard.city.create');
+        $states = State::all();
+
+        return view('dashboard.city.create', compact('states'));
     }
 
     /**
@@ -38,13 +41,13 @@ class CitiesController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'state' => 'required:max:60',
-            'name' => 'required|max:60'
+            'state' => 'required',
+            'name' => 'required|max:60|unique:cities,name'
         ]);
 
-        City::create($data);
+        State::find(request('state'))->cities()->create($data);
 
-        return redirect(route('city.index'));
+        return redirect(route('cities.index'));
     }
 
     /**
@@ -66,7 +69,7 @@ class CitiesController extends Controller
      */
     public function edit(City $city)
     {
-        return view('dashboard.city.edit');
+        return view('dashboard.city.edit', compact('city'));
     }
 
     /**
@@ -79,11 +82,12 @@ class CitiesController extends Controller
     public function update(Request $request, City $city)
     {
         $data = request()->validate([
-            'state' => 'required:max:60',
             'name' => 'required|max:60'
         ]);
 
         $city->update($data);
+
+        return redirect(route('cities.index'));
     }
 
     /**
@@ -95,5 +99,7 @@ class CitiesController extends Controller
     public function destroy(City $city)
     {
         $city->delete();
+
+        return redirect(route('cities.index'));
     }
 }
