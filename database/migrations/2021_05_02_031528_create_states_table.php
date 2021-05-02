@@ -20,7 +20,10 @@ class CreateStatesTable extends Migration
             $table->dateTime('updated_at')->nullable();
             $table->dateTime('deleted_at')->nullable();
 
-            $table->foreign('country')->references('country_code')->on('countries')->onDelete('cascade');
+            $table->foreign('country')
+                ->references('country_code')
+                ->on('countries')
+                ->onDelete('cascade');
         });
     }
 
