@@ -38,13 +38,13 @@ class CountriesController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'country_code' => 'required|max:3',
+            'country_code' => 'required|max:3|unique:countries,country_code',
             'name' => 'required|max:60',
         ]);
 
         Country::create($data);
 
-        return redirect('/countries');
+        return redirect()->back();
     }
 
     /**

@@ -34,7 +34,7 @@
                     <li class="px-2 py-3 text-md font-semibold hover:text-blue-100 rounded-md cursor-pointer">System Management</li>
                     <li>
                         <ul>
-                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer">Country</li>
+                            <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer"><a href="/countries">Country</a></li>
                             <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer">State</li>
                             <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer">City</li>
                             <li class="pl-8 px-2 py-2 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer">Department</li>
@@ -56,7 +56,7 @@
                 <div class="flex justify-end items-center h-full px-8 text-blue-500">
                     <div>
                         @auth
-                            {{ Auth::user()->name }}
+                            {{ Auth::user()->firstname }} {{ Auth::user()->lastname}}
                         @endauth
                     </div>
                     <div class="ml-3 cursor-pointer px-3 py-2 bg-blue-100 rounded-md hover:bg-blue-200">
