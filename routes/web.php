@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CountriesController;
+use App\Http\Controllers\StatesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,4 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 
 Route::resource('users', UsersController::class)->except('show');
 Route::resource('countries', CountriesController::class);
+Route::resource('states', StatesController::class);
