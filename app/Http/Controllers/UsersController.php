@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
 {
@@ -18,7 +19,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = User::withTrashed()->get();
         return view('dashboard.user.index', compact('users'));
     }
 
@@ -45,13 +46,18 @@ class UsersController extends Controller
             'lastname' => 'required|max:60',
             'firstname' => 'required|max:60',
             'email' => 'required|email|unique:users',
-            'password' => 'required|conformed',
+            'password' => 'required|confirmed',
         ]);
 
-        $user = User::create($data);
+        $user = User::create([
+            'username' => request('username'),
+            'lastname' => request('lastname'),
+            'firstname' => request('firstname'),
+            'email' => request('email'),
+            'password' => Hash::make(request('password')),
+        ]);
         
-        return redirect('/users');
-
+        return redirect()->back();
     }
 
 
@@ -63,7 +69,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('dashboard.user.edit');
+        return view('dashboard.user.edit', compact('user'));
     }
 
     /**
@@ -79,8 +85,7 @@ class UsersController extends Controller
             'username' => 'required|max:20',
             'lastname' => 'required|max:60',
             'firstname' => 'required|max:60',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|conformed'
+            'email' => 'required|email',
         ]);
 
         $user->update($data);
@@ -96,6 +101,8 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->back();
     }
 }

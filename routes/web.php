@@ -5,6 +5,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\StatesController;
+use App\Http\Controllers\CitiesController;
+use App\Http\Controllers\DepartmentsController;
+use App\Http\Controllers\EmployeesController;
+
 
 /*
 |--------------------------------------------------------------------------

@@ -19,14 +19,14 @@
                         @csrf
                         <div class="flex-col px-4">
                             <label class="block text-lg" for="">Email *</label>
-                            <input class="mt-1 block w-full py-2 border-opacity-50 rounded-md px-2 border-2 border-gray-500" type="text" name="email" placeholder="Enater your email">
+                            <input class="mt-1 block w-full py-2 border-opacity-50 rounded-md px-2 border-2 border-gray-500" type="text" name="email" placeholder="Enter your email">
                             @error('email')
                                 <p class="text-md text-red-500">{{ $errors->first('email') }}</p>
                             @enderror
                         </div>
                         <div class="flex-col mt-4 px-4">
                             <label class="block text-lg" for="">Password *</label>
-                            <input class="mt-1 block w-full py-2 border-opacity-50 rounded-md px-2 border-2 border-gray-500" type="password" name="password" placeholder="Enater your password">
+                            <input class="mt-1 block w-full py-2 border-opacity-50 rounded-md px-2 border-2 border-gray-500" type="password" name="password" placeholder="Enter your password">
                             @error('password')
                                 <p class="text-md text-red-500">{{ $errors->first('password') }}</p>
                             @enderror
@@ -37,9 +37,9 @@
                         </div>
                     </form>
                 </div>
-                <div class="mt-2">
+                {{-- <div class="mt-2">
                     <h5 class="text-right text-blue-100"><a href="/password/reset">Forgot your password?</a></h5>
-                </div>
+                </div> --}}
             </div>
         </div>
     </main>
