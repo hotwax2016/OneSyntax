@@ -42,7 +42,7 @@ class StatesController extends Controller
     {
         $data = request()->validate([
             'country' => 'required',
-            'name' => 'required|max:60'
+            'name' => 'required|max:60|unique:states,name'
         ]);
 
         Country::find(request('country'))->states()->create($data);
