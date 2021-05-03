@@ -21,7 +21,7 @@ class EmployeesController extends Controller
     {
         $employees = Employee::with('department', 'city', 'state', 'country')->get();
 
-        return response()->json($employees);
+        return response($employees, 200);
     }
 
     /**
@@ -29,10 +29,10 @@ class EmployeesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    /* public function create()
     {
         return view('dashboard.employee.create');
-    }
+    } */
 
     /**
      * Store a newly created resource in storage.
@@ -42,7 +42,7 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        $data = request()->validate([
+        /* $data = request()->validate([
             'lastname' => 'required|string|max:60',
             'firstname' => 'required|string|max:6',
             'middlename' => 'string|max:60',
@@ -54,11 +54,11 @@ class EmployeesController extends Controller
             'zip' => 'required|int|max:10',
             'birthdate' => 'date',
             'date_hired' => 'date'
-        ]);
+        ]); */
 
-        Employee::create($data);
+        $employee = Employee::create($data);
 
-        return redirect(route('employees.index'));
+        return response()->json($employee);
     }
 
     /**
@@ -78,10 +78,10 @@ class EmployeesController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employee $employee)
+    /* public function edit(Employee $employee)
     {
         return view('dashboard.employee.edit', compact('employee'));
-    }
+    } */
 
     /**
      * Update the specified resource in storage.
@@ -92,7 +92,7 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        $data = request()->validate([
+        /* $data = request()->validate([
             'lastname' => 'required|string|max:60',
             'firstname' => 'required|string|max:6',
             'middlename' => 'string|max:60',
@@ -104,9 +104,11 @@ class EmployeesController extends Controller
             'zip' => 'required|int|max:10',
             'birthdate' => 'date',
             'date_hired' => 'date'
-        ]);
+        ]); */
 
         $employee->update($data);
+
+        return response('update complete', 200);
     }
 
     /**

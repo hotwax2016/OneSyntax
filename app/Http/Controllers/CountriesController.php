@@ -19,6 +19,13 @@ class CountriesController extends Controller
         return view('dashboard.country.index', compact('countries'));
     }
 
+    public function indexJson()
+    {
+        $countries = Country::all();
+
+        return response()->json($countries);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

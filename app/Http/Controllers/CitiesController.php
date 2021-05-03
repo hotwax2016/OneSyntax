@@ -20,6 +20,13 @@ class CitiesController extends Controller
         return view('dashboard.city.index', compact('cities'));
     }
 
+    public function indexJson()
+    {
+        $cities = City::all();
+
+        return response()->json($cities);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

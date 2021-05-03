@@ -19,6 +19,13 @@ class DepartmentsController extends Controller
         return view('dashboard.department.index', compact('departments'));
     }
 
+    public function indexJson()
+    {
+        $departments = Department::all();
+
+        return response()->json($departments);
+    }
+
     /**
      * Show the form for creating a new resource.
      *

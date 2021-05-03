@@ -20,6 +20,13 @@ class StatesController extends Controller
         return view('dashboard.state.index', compact('states'));
     }
 
+    public function indexJson()
+    {
+        $states = State::all();
+
+        return response()->json($states);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
