@@ -15,14 +15,20 @@ class CitiesController extends Controller
      */
     public function index()
     {
-        $cities = City::all();
+        if (request('city')) {
+            $cities = City::withTrashed()
+                        ->where('name', request('city'))
+                        ->get();
+        } else {
+            $cities = City::withTrashed()->get();
+        }
 
         return view('dashboard.city.index', compact('cities'));
     }
 
     public function indexJson()
     {
-        $cities = City::all();
+        $cities = City::withTrashed()->get();
 
         return response()->json($cities);
     }

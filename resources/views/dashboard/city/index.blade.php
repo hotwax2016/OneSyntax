@@ -6,15 +6,13 @@ City | System Management
 
 @section('main')
 <div class="pb-5">
-  <div class="flex w-full mx-auto items-baseline mt-5">
-    <div class="w-2/3 mx-auto">
-      <form class="flex w-full" method="GET" action="/users">
-        <input class="block px-2 py-3 mr-2 rounded-xl text-gray-500 placeholder-gray-400" type="text" name="username" placeholder="Search by username">
-      </form>
-    </div>
-    <div class="w-2/3">
-      <a class="px-2 py-3 bg-blue-500 text-blue-200 font-semibold tracking-wide rounded-md hover:bg-blue-600 hover:text-blue-100" href="/cities/create">New city</a>
-    </div>
+  <div class="w-2/3 mx-auto">
+    <form method="GET" action="/cities">
+      <input class="w-full px-4 py-2 text-gray-500 rounded-full" name="city" type="text" placeholder="Enter city to search">
+    </form>
+  </div>
+  <div class="mt-10 mx-auto">
+    <a class="px-2 py-3 bg-blue-500 text-blue-200 font-semibold tracking-wide rounded-md hover:bg-blue-600 hover:text-blue-100" href="/cities/create">Add City</a>
   </div>
   <div class="flex justify-center mx-auto bg-white px-4 pb-4 mt-4 border rounded-md shadow">
     <table class="w-full">

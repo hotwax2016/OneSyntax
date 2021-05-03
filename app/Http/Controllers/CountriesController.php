@@ -14,14 +14,20 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        $countries = Country::all();
+        if (request('country')) {
+            $countries = Country::withTrashed()
+                        ->where('name', request('country'))
+                        ->get();
+        } else {
+            $countries = Country::withTrashed()->get();
+        }
         
         return view('dashboard.country.index', compact('countries'));
     }
 
     public function indexJson()
     {
-        $countries = Country::all();
+        $countries = Country::withTrashed()->get();
 
         return response()->json($countries);
     }

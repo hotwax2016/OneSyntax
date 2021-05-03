@@ -6,10 +6,12 @@ Department | System Management
 
 @section('main')
 <div class="pb-5">
-  <div>
-    <h2 class="text-lg">User search goes here</h2>
+  <div class="w-2/3 mx-auto">
+    <form method="GET" action="/departments">
+      <input class="w-full px-4 py-2 text-gray-500 rounded-full" name="department" type="text" placeholder="Enter department name to search">
+    </form>
   </div>
-  <div class="mt-16 mx-auto">
+  <div class="mt-10 mx-auto">
     <a class="px-2 py-3 bg-blue-500 text-blue-200 font-semibold tracking-wide rounded-md hover:bg-blue-600 hover:text-blue-100" href="/departments/create">Add Department</a>
   </div>
   <div class="flex justify-center mx-auto bg-white px-4 pb-4 mt-4 border rounded-md shadow">
