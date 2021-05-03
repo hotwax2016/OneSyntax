@@ -34,6 +34,8 @@ class User extends Authenticatable
         'password'
     ];
 
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
     /**
      * The attributes that should be cast to native types.
      *

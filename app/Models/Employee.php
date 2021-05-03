@@ -28,6 +28,13 @@ class Employee extends Model
         'date_hired',
     ];
 
+    protected $dates = [
+        'created_at', 
+        'updated_at', 
+        'deleted_at', 
+        'date_hired'
+    ];
+
     public function department()
     {
         return $this->belongsTo(Department::class);

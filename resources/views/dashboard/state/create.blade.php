@@ -13,16 +13,18 @@ Add state | System Management
 			<div class="flex w-full">
 				<div class="flex-col w-full pr-2">
 					<label class="block w-full pl-1 text-md text-gray-600" for="">Country</label>
-					<select name="country">
+					<select class="w-full px-2 py-2 border rounded-md bg-white text-gray-600">
+						<option value="" disabled selected>Choose Country</option>
 						@forelse ($countries as $country)
-							<option value="{{ $country->id }}">{{ $country->name }}</option>
+						<option value="{{ $country->id }}">
+							{{ $country->name }}
+						  </option>
 						@empty
-							No data
 						@endforelse
 					</select>
 					@error('country_code')
-					<span class="text-sm text-red-400">{{ $errors->first('country_code') }}</span>
-				@enderror
+						<span class="text-sm text-red-400">{{ $errors->first('country_code') }}</span>
+					@enderror
 				</div>
 				<div class="flex-col w-full pl-2">
 					<label class="block w-full pl-1 text-md text-gray-600" for="">Name</label>

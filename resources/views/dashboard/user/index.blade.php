@@ -8,18 +8,19 @@ User Management
 <div class="pb-5">
   <div class="flex items-baseline mt-5">
     <div class="w-2/3 mx-auto">
+      <div class="">
+        <a class="px-2 py-3 bg-blue-500 text-blue-200 font-semibold tracking-wide rounded-md hover:bg-blue-600 hover:text-blue-100" href="/users/create">New User</a>
+      </div>
       <form class="flex w-full" method="GET" action="/users">
         <input class="block w-2/3 px-2 py-3 mr-2 rounded-xl text-gray-500 placeholder-gray-400" type="text" name="username" placeholder="Search by username">
       </form>
-    </div>
-    <div class="">
-      <a class="px-2 py-3 bg-blue-500 text-blue-200 font-semibold tracking-wide rounded-md hover:bg-blue-600 hover:text-blue-100" href="/users/create">New User</a>
     </div>
   </div>
   <div class="flex justify-center w-full bg-white px-4 pb-4 mt-4 border rounded-md shadow">
     <table class="w-full">
       <thead>
         <tr>
+          <th class="py-4 text-left text-gray-500">ID</th>
           <th class="py-4 text-left text-gray-500">Username</th>
           <th class="py-4 text-left text-gray-500">Lastname</th>
           <th class="py-4 text-left text-gray-500">Firstname</th>
@@ -34,13 +35,14 @@ User Management
         @if ($users)
         @foreach ($users as $user)
         <tr>
+          <td class="py-3 text-left text-gray-500 font-semibold">{{ $user->id }}</td>
           <td class="py-3 text-left text-blue-500 font-semibold">{{ $user->username }}</td>
           <td class="py-3 text-left text-gray-500">{{ $user->lastname }}</td>
           <td class="py-3 text-left text-gray-500">{{ $user->firstname }}</td>
           <td class="py-3 text-left text-gray-500">{{ $user->email }}</td>
-          <td class="py-3 text-left text-gray-500">{{ $user->created_at }}</td>
-          <td class="py-3 text-left text-gray-500">{{ $user->updated_at }}</td>
-          <td class="py-3 text-center text-gray-500">{{ $user->deleted_at ? $user->deleted_at : 'never' }}</td>
+          <td class="py-3 text-left text-gray-500">{{ $user->created_at ? $user->created_at->format('Y-m-d') : '' }}</td>
+          <td class="py-3 text-left text-gray-500">{{ $user->updated_at ? $user->updated_at->format('Y-m-d') : '' }}</td>
+          <td class="py-3 text-center text-gray-500">{{ $user->deleted_at ? $user->deleted_at->format('Y-m-d') : 'never' }}</td>
           <td class="flex justify-center items-center py-3 text-blue-500">
             <a href="/users/{{ $user->id }}/edit">
               <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

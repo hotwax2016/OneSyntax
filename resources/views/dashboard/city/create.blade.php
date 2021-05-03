@@ -12,12 +12,14 @@ Add city | System Management
 			@csrf
 			<div class="flex w-full">
 				<div class="flex-col w-full pr-2">
-					<label class="block w-full pl-1 text-md text-gray-600" for="">Country</label>
-					<select name="state">
+					<label class="block w-full pl-1 text-md text-gray-600" for="">State</label>
+					<select class="w-full px-2 py-2 border rounded-md bg-white text-gray-600">
+						<option value="" disabled selected>Choose State</option>
 						@forelse ($states as $state)
-							<option value="{{ $state->id }}">{{ $state->name }}</option>
+						<option value="{{ $state->id }}">
+							{{ $state->name }}
+						  </option>
 						@empty
-							No data
 						@endforelse
 					</select>
 					@error('country_code')
