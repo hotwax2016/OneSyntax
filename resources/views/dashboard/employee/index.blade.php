@@ -5,7 +5,7 @@ Employee Management
 @endsection
 
 @section('main')
-<div id="app">
+<div>
     <base-component></base-component>
 </div>
 @endsection

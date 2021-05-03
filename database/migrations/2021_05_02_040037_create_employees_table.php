@@ -24,7 +24,7 @@ class CreateEmployeesTable extends Migration
             $table->unsignedBigInteger('state_id');
             $table->unsignedBigInteger('country_id');
             $table->char('zip', 10);
-            $table->date('birthday')->nullable();
+            $table->date('birthdate')->nullable();
             $table->date('date_hired')->nullable();
             $table->dateTime('created_at')->nullable();
             $table->dateTime('updated_at')->nullable();

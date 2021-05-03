@@ -1845,6 +1845,35 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2074,8 +2103,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       employees: [],
+      departments: [],
+      countries: [],
+      states: [],
+      cities: [],
       dynamicList: [],
-      newEmployee: true,
+      newEmployee: false,
       employee: {
         firstname: '',
         middlename: '',
@@ -2093,15 +2126,110 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     getEmployees: function getEmployees() {
-      this.$store.dispatch('fetch_employees');
+      var _this = this;
+
+      axios.get('/api/employees').then(function (res) {
+        _this.employees = res.data;
+        _this.dynamicList = [];
+
+        _this.employees.forEach(function (element) {
+          _this.dynamicList.push(_objectSpread(_objectSpread({}, element), {}, {
+            'visible': false
+          }));
+        });
+      })["catch"](function (e) {
+        console.log('error', e);
+      });
+    },
+    getDepartments: function getDepartments() {
+      var _this2 = this;
+
+      axios.get('/api/departments').then(function (res) {
+        _this2.departments = res.data;
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
+    getCountries: function getCountries() {
+      var _this3 = this;
+
+      axios.get('/api/countries').then(function (res) {
+        _this3.countries = res.data;
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
+    getStates: function getStates() {
+      var _this4 = this;
+
+      axios.get('/api/states').then(function (res) {
+        _this4.states = res.data;
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
+    getCities: function getCities() {
+      var _this5 = this;
+
+      axios.get('/api/cities').then(function (res) {
+        _this5.cities = res.data;
+      })["catch"](function (e) {
+        console.log(e);
+      });
     },
     toggleProfile: function toggleProfile(res) {
       res.visible = !res.visible;
+    },
+    clearForm: function clearForm() {
+      this.clearEmployee();
+      this.newEmployee = false;
+    },
+    clearEmployee: function clearEmployee() {
+      this.employee = {
+        firstname: '',
+        middlename: '',
+        lastname: '',
+        address: '',
+        department_id: '',
+        city_id: '',
+        state_id: '',
+        country_id: '',
+        zip: '',
+        birthdate: '',
+        date_hired: ''
+      };
+    },
+    addEmployee: function addEmployee() {
+      var _this6 = this;
+
+      axios.post('/api/employees', this.employee).then(function (res) {
+        console.log(res);
+
+        _this6.clearEmployee();
+
+        _this6.getEmployees();
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
+    deleteEmployee: function deleteEmployee(id) {
+      var _this7 = this;
+
+      axios["delete"]('/api/employees/' + id).then(function (res) {
+        console.log(res);
+
+        _this7.getEmployees();
+      })["catch"](function (e) {
+        console.log(e);
+      });
     }
   },
   mounted: function mounted() {
     this.getEmployees();
-    this.employees = this.$store.employees;
+    this.getDepartments();
+    this.getCountries();
+    this.getStates();
+    this.getCities();
   }
 });
 
@@ -37780,7 +37908,7 @@ var render = function() {
           "button",
           {
             staticClass:
-              "px-2 py-2 bg-blue-400 text-blue-200 font-semibold tracking-wide rounded-md hover:bg-blue-500 hover:text-blue-100",
+              "px-2 py-2 bg-blue-500 text-blue-200 font-semibold tracking-wide rounded-md hover:text-blue-100",
             on: {
               click: function($event) {
                 _vm.newEmployee = !_vm.newEmployee
@@ -37948,32 +38076,62 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "w-2/3" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.employee.department_id,
-                          expression: "employee.department_id"
-                        }
-                      ],
-                      staticClass:
-                        "px-2 py-2 border rounded-md w-full text-gray-600",
-                      attrs: { type: "text", name: "firstname" },
-                      domProps: { value: _vm.employee.department_id },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.employee.department_id,
+                            expression: "employee.department_id"
                           }
-                          _vm.$set(
-                            _vm.employee,
-                            "department_id",
-                            $event.target.value
-                          )
+                        ],
+                        staticClass:
+                          "w-full px-2 py-2 border rounded-md bg-white text-gray-600",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.employee,
+                              "department_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
-                      }
-                    })
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "", disabled: "", selected: "" } },
+                          [_vm._v("Choose department")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.departments, function(department) {
+                          return _c(
+                            "option",
+                            { domProps: { value: department.id } },
+                            [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(department.name) +
+                                  "\n            "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -37983,28 +38141,62 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "w-2/3" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.employee.city_id,
-                          expression: "employee.city_id"
-                        }
-                      ],
-                      staticClass:
-                        "px-2 py-2 border rounded-md w-full text-gray-600",
-                      attrs: { type: "text", name: "firstname" },
-                      domProps: { value: _vm.employee.city_id },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.employee.city_id,
+                            expression: "employee.city_id"
                           }
-                          _vm.$set(_vm.employee, "city_id", $event.target.value)
+                        ],
+                        staticClass:
+                          "w-full px-2 py-2 border rounded-md bg-white text-gray-600",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.employee,
+                              "city_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
-                      }
-                    })
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "", disabled: "", selected: "" } },
+                          [_vm._v("Choose city")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.cities, function(city) {
+                          return _c(
+                            "option",
+                            { domProps: { value: city.id } },
+                            [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(city.name) +
+                                  "\n            "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -38014,32 +38206,62 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "w-2/3" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.employee.state_id,
-                          expression: "employee.state_id"
-                        }
-                      ],
-                      staticClass:
-                        "px-2 py-2 border rounded-md w-full text-gray-600",
-                      attrs: { type: "text", name: "firstname" },
-                      domProps: { value: _vm.employee.state_id },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.employee.state_id,
+                            expression: "employee.state_id"
                           }
-                          _vm.$set(
-                            _vm.employee,
-                            "state_id",
-                            $event.target.value
-                          )
+                        ],
+                        staticClass:
+                          "w-full px-2 py-2 border rounded-md bg-white text-gray-600",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.employee,
+                              "state_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
-                      }
-                    })
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "", disabled: "", selected: "" } },
+                          [_vm._v("Choose state")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.states, function(state) {
+                          return _c(
+                            "option",
+                            { domProps: { value: state.id } },
+                            [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(state.name) +
+                                  "\n            "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -38049,32 +38271,62 @@ var render = function() {
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "w-2/3" }, [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.employee.country_id,
-                          expression: "employee.country_id"
-                        }
-                      ],
-                      staticClass:
-                        "px-2 py-2 border rounded-md w-full text-gray-600",
-                      attrs: { type: "text", name: "firstname" },
-                      domProps: { value: _vm.employee.country_id },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.employee.country_id,
+                            expression: "employee.country_id"
                           }
-                          _vm.$set(
-                            _vm.employee,
-                            "country_id",
-                            $event.target.value
-                          )
+                        ],
+                        staticClass:
+                          "w-full px-2 py-2 border rounded-md bg-white text-gray-600",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.employee,
+                              "country_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
                         }
-                      }
-                    })
+                      },
+                      [
+                        _c(
+                          "option",
+                          { attrs: { value: "", disabled: "", selected: "" } },
+                          [_vm._v("Choose country")]
+                        ),
+                        _vm._v(" "),
+                        _vm._l(_vm.countries, function(country) {
+                          return _c(
+                            "option",
+                            { domProps: { value: country.id } },
+                            [
+                              _vm._v(
+                                "\n              " +
+                                  _vm._s(country.name) +
+                                  "\n            "
+                              )
+                            ]
+                          )
+                        })
+                      ],
+                      2
+                    )
                   ])
                 ]),
                 _vm._v(" "),
@@ -38126,7 +38378,7 @@ var render = function() {
                       ],
                       staticClass:
                         "px-2 py-2 border rounded-md w-full text-gray-600",
-                      attrs: { type: "text", name: "firstname" },
+                      attrs: { type: "date", name: "firstname" },
                       domProps: { value: _vm.employee.birthdate },
                       on: {
                         input: function($event) {
@@ -38161,7 +38413,7 @@ var render = function() {
                       ],
                       staticClass:
                         "px-2 py-2 border rounded-md w-full text-gray-600",
-                      attrs: { type: "text", name: "firstname" },
+                      attrs: { type: "date", name: "firstname" },
                       domProps: { value: _vm.employee.date_hired },
                       on: {
                         input: function($event) {
@@ -38184,9 +38436,14 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "px-2 py-2 bg-blue-500 text-blue-200 rounded-md font-semibold"
+                        "px-2 py-2 bg-blue-500 text-blue-200 rounded-md font-semibold",
+                      on: {
+                        click: function($event) {
+                          return _vm.addEmployee()
+                        }
+                      }
                     },
-                    [_vm._v("Add employee")]
+                    [_vm._v("\n          Add employee\n        ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -38196,11 +38453,11 @@ var render = function() {
                         "px-2 py-2 bg-red-500 text-red-100 rounded-md font-semibold",
                       on: {
                         click: function($event) {
-                          _vm.newEmployee = false
+                          return _vm.clearForm()
                         }
                       }
                     },
-                    [_vm._v("Close form")]
+                    [_vm._v("\n          Close form\n        ")]
                   )
                 ])
               ]
@@ -38303,9 +38560,15 @@ var render = function() {
                     "button",
                     {
                       staticClass:
-                        "px-3 py-2 bg-red-500 text-red-200 font-semibold rounded-lg"
+                        "px-3 py-2 bg-red-500 text-red-200 font-semibold rounded-lg",
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.deleteEmployee(employee.id)
+                        }
+                      }
                     },
-                    [_vm._v("Delete")]
+                    [_vm._v("\n            Delete\n          ")]
                   )
                 ])
               ])

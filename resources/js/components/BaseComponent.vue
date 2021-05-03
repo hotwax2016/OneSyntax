@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="w-2/3 my-4 mx-auto">
-      <button @click="newEmployee = !newEmployee" class="px-2 py-2 bg-blue-400 text-blue-200 font-semibold tracking-wide rounded-md hover:bg-blue-500 hover:text-blue-100">New Employee</button>
+      <button @click="newEmployee = !newEmployee" class="px-2 py-2 bg-blue-500 text-blue-200 font-semibold tracking-wide rounded-md hover:text-blue-100">New Employee</button>
     </div>
     <div v-if="newEmployee" class="w-2/3 mx-auto">
       <div class="px-8 py-4 my-10 bg-white rounded-md border shadow-sm space-y-4">
@@ -55,10 +55,12 @@
             *Department
           </div>
           <div class="w-2/3">
-            <input 
-              class="px-2 py-2 border rounded-md w-full text-gray-600" type="text" name="firstname"
-              v-model="employee.department_id"
-            >
+            <select class="w-full px-2 py-2 border rounded-md bg-white text-gray-600" v-model="employee.department_id" >
+              <option value="" disabled selected>Choose department</option>
+              <option v-for="department in departments" :value="department.id">
+                {{ department.name }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="flex items-center">
@@ -66,10 +68,12 @@
             *City
           </div>
           <div class="w-2/3">
-            <input 
-              class="px-2 py-2 border rounded-md w-full text-gray-600" type="text" name="firstname"
-              v-model="employee.city_id"
-            >
+            <select class="w-full px-2 py-2 border rounded-md bg-white text-gray-600" v-model="employee.city_id" >
+              <option value="" disabled selected>Choose city</option>
+              <option v-for="city in cities" :value="city.id">
+                {{ city.name }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="flex items-center">
@@ -77,10 +81,12 @@
             *State
           </div>
           <div class="w-2/3">
-            <input 
-              class="px-2 py-2 border rounded-md w-full text-gray-600" type="text" name="firstname"
-              v-model="employee.state_id"
-            >
+            <select class="w-full px-2 py-2 border rounded-md bg-white text-gray-600" v-model="employee.state_id" >
+              <option value="" disabled selected>Choose state</option>
+              <option v-for="state in states" :value="state.id">
+                {{ state.name }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="flex items-center">
@@ -88,10 +94,12 @@
             *Country
           </div>
           <div class="w-2/3">
-            <input 
-              class="px-2 py-2 border rounded-md w-full text-gray-600" type="text" name="firstname"
-              v-model="employee.country_id"
-            >
+            <select class="w-full px-2 py-2 border rounded-md bg-white text-gray-600" v-model="employee.country_id" >
+              <option value="" disabled selected>Choose country</option>
+              <option v-for="country in countries" :value="country.id">
+                {{ country.name }}
+              </option>
+            </select>
           </div>
         </div>
         <div class="flex items-center">
@@ -111,7 +119,7 @@
           </div>
           <div class="w-2/3">
             <input 
-              class="px-2 py-2 border rounded-md w-full text-gray-600" type="text" name="firstname"
+              class="px-2 py-2 border rounded-md w-full text-gray-600" type="date" name="firstname"
               v-model="employee.birthdate"
             >
           </div>
@@ -122,14 +130,24 @@
           </div>
           <div class="w-2/3">
             <input 
-              class="px-2 py-2 border rounded-md w-full text-gray-600" type="text" name="firstname"
+              class="px-2 py-2 border rounded-md w-full text-gray-600" type="date" name="firstname"
               v-model="employee.date_hired"
             >
           </div>
         </div>
         <div class="pt-5">
-          <button class="px-2 py-2 bg-blue-500 text-blue-200 rounded-md font-semibold">Add employee</button>
-          <button @click="newEmployee = false" class="px-2 py-2 bg-red-500 text-red-100 rounded-md font-semibold">Close form</button>
+          <button
+            @click="addEmployee()"
+            class="px-2 py-2 bg-blue-500 text-blue-200 rounded-md font-semibold"
+          >
+            Add employee
+          </button>
+          <button 
+            @click="clearForm()" 
+            class="px-2 py-2 bg-red-500 text-red-100 rounded-md font-semibold"
+          >
+            Close form
+          </button>
         </div>
       </div>
     </div>
@@ -159,7 +177,12 @@
           <div>
             <button class="px-3 py-2 text-blue-600 rounded-lg" @click="toggleProfile(employee)">More</button>
             <button class="px-3 py-2 bg-green-500 text-green-200 font-semibold rounded-lg">Edit</button>
-            <button class="px-3 py-2 bg-red-500 text-red-200 font-semibold rounded-lg">Delete</button>
+            <button
+              @click.prevent="deleteEmployee(employee.id)" 
+              class="px-3 py-2 bg-red-500 text-red-200 font-semibold rounded-lg"
+            >
+              Delete
+            </button>
           </div>
         </div>
       </div>
@@ -228,8 +251,12 @@ export default {
   data() {
     return {
       employees: [],
+      departments: [],
+      countries: [],
+      states: [],
+      cities: [],
       dynamicList: [],
-      newEmployee: true,
+      newEmployee: false,
       employee: {
         firstname: '',
         middlename: '',
@@ -247,15 +274,104 @@ export default {
   },
   methods: {
     getEmployees() {
-      this.$store.dispatch('fetch_employees')
+      axios.get('/api/employees')
+        .then(res => {
+          this.employees = res.data
+          this.dynamicList = []
+          this.employees.forEach(element => {
+            this.dynamicList.push({...element, 'visible': false})
+          });
+        })
+        .catch(e => {
+          console.log('error', e)
+        })
+    },
+    getDepartments() {
+      axios.get('/api/departments')
+        .then(res => {
+          this.departments = res.data
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getCountries() {
+      axios.get('/api/countries')
+        .then(res => {
+          this.countries = res.data
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getStates() {
+      axios.get('/api/states')
+        .then(res => {
+          this.states = res.data
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    getCities() {
+      axios.get('/api/cities')
+        .then(res => {
+          this.cities = res.data
+        })
+        .catch(e => {
+          console.log(e)
+        })
     },
     toggleProfile(res) {
       res.visible = !res.visible
+    },
+    clearForm() {
+      this.clearEmployee()
+      this.newEmployee = false
+    },
+    clearEmployee() {
+      this.employee = {
+        firstname: '',
+        middlename: '',
+        lastname: '',
+        address: '',
+        department_id: '',
+        city_id: '',
+        state_id: '',
+        country_id: '',
+        zip: '',
+        birthdate: '',
+        date_hired: '',
+      }
+    },
+    addEmployee() {
+      axios.post('/api/employees', this.employee)
+        .then(res => {
+          console.log(res)
+          this.clearEmployee()
+          this.getEmployees()
+        })
+        .catch(e => {
+          console.log(e)
+        })
+    },
+    deleteEmployee(id) {
+      axios.delete('/api/employees/' + id)
+        .then(res => {
+          console.log(res)
+          this.getEmployees()
+        })
+        .catch(e => {
+          console.log(e)
+        })
     }
   },
   mounted() {
     this.getEmployees()
-    this.employees = this.$store.employees
+    this.getDepartments()
+    this.getCountries()
+    this.getStates()
+    this.getCities()
   }
 }
 </script>

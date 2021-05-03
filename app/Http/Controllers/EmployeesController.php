@@ -19,9 +19,11 @@ class EmployeesController extends Controller
     }
     public function index()
     {
-        $employees = Employee::with('department', 'city', 'state', 'country')->get();
+        $employees = Employee::withTrashed()
+                        ->with('department', 'city', 'state', 'country')
+                        ->get();
 
-        return response($employees, 200);
+        return response()->json($employees);
     }
 
     /**
@@ -56,9 +58,9 @@ class EmployeesController extends Controller
             'date_hired' => 'date'
         ]); */
 
-        $employee = Employee::create($data);
+        $employee = Employee::create(request()->all());
 
-        return response()->json($employee);
+        return response('user created', 200);;
     }
 
     /**
@@ -119,6 +121,8 @@ class EmployeesController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $employee->delate();
+
+        $employee->delete();
+        return response('ok');
     }
 }

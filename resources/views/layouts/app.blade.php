@@ -72,7 +72,7 @@
                 </div>
             </div>
             <div class="mt-1 p-4">
-                <div>
+                <div id="app">
                     @yield('main')
                 </div>
             </div>
