@@ -1,5 +1,5 @@
 let state = {
-  employees: {}
+  employees: [],
 }
 
 export default state

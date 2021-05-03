@@ -246,21 +246,16 @@ export default {
     }
   },
   methods: {
-    getUser() {
-      axios.get('/api/employees')
-        .then(res => {
-          this.employees = res.data
-          this.employees.forEach(element => {
-            this.dynamicList.push({...element, 'visible': false})
-          });
-        })
+    getEmployees() {
+      this.$store.dispatch('fetch_employees')
     },
     toggleProfile(res) {
       res.visible = !res.visible
     }
   },
   mounted() {
-    this.getUser();
+    this.getEmployees()
+    this.employees = this.$store.employees
   }
 }
 </script>

@@ -1845,12 +1845,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) { symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); } keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 //
 //
 //
@@ -2098,25 +2092,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   methods: {
-    getUser: function getUser() {
-      var _this = this;
-
-      axios.get('/api/employees').then(function (res) {
-        _this.employees = res.data;
-
-        _this.employees.forEach(function (element) {
-          _this.dynamicList.push(_objectSpread(_objectSpread({}, element), {}, {
-            'visible': false
-          }));
-        });
-      });
+    getEmployees: function getEmployees() {
+      this.$store.dispatch('fetch_employees');
     },
     toggleProfile: function toggleProfile(res) {
       res.visible = !res.visible;
     }
   },
   mounted: function mounted() {
-    this.getUser();
+    this.getEmployees();
+    this.employees = this.$store.employees;
   }
 });
 
@@ -2260,7 +2245,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var actions = {//
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var actions = {
+  fetch_employees: function fetch_employees(_ref) {
+    var commit = _ref.commit;
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get('/api/employees').then(function (res) {
+      commit('FETCH_EMPLOYEES', res.data);
+    })["catch"](function (e) {
+      console.log('[error] fetch_employees', e);
+    });
+  }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (actions);
 
@@ -2308,7 +2304,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-var mutations = {//
+var mutations = {
+  FETCH_EMPLOYEES: function FETCH_EMPLOYEES(state, employees) {
+    state.employees.push(employees);
+  }
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (mutations);
 
@@ -2326,7 +2325,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 var state = {
-  employees: {}
+  employees: []
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (state);
 
@@ -52105,6 +52104,18 @@ var index = {
 /******/ 				}
 /******/ 			}
 /******/ 			return result;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
 /******/ 		};
 /******/ 	})();
 /******/ 	
