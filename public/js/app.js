@@ -38636,7 +38636,15 @@ var render = function() {
                       _c(
                         "div",
                         { staticClass: "w-2/3 text-gray-500 text-lg" },
-                        [_vm._v(_vm._s(employee.department.name))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              employee.department
+                                ? employee.department.name
+                                : ""
+                            )
+                          )
+                        ]
                       )
                     ]),
                     _vm._v(" "),
@@ -38650,7 +38658,11 @@ var render = function() {
                       _c(
                         "div",
                         { staticClass: "w-2/3 text-gray-500 text-lg" },
-                        [_vm._v(_vm._s(employee.city.name))]
+                        [
+                          _vm._v(
+                            _vm._s(employee.city ? employee.city.name : "")
+                          )
+                        ]
                       )
                     ]),
                     _vm._v(" "),
@@ -38664,7 +38676,11 @@ var render = function() {
                       _c(
                         "div",
                         { staticClass: "w-2/3 text-gray-500 text-lg" },
-                        [_vm._v(_vm._s(employee.state.name))]
+                        [
+                          _vm._v(
+                            _vm._s(employee.state ? employee.state.name : "")
+                          )
+                        ]
                       )
                     ]),
                     _vm._v(" "),
@@ -38678,7 +38694,13 @@ var render = function() {
                       _c(
                         "div",
                         { staticClass: "w-2/3 text-gray-500 text-lg" },
-                        [_vm._v(_vm._s(employee.country.name))]
+                        [
+                          _vm._v(
+                            _vm._s(
+                              employee.country ? employee.country.name : ""
+                            )
+                          )
+                        ]
                       )
                     ]),
                     _vm._v(" "),

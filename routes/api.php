@@ -7,6 +7,7 @@ use App\Http\Controllers\DepartmentsController;
 use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\StatesController;
 use App\Http\Controllers\CitiesController;
+use App\Http\Controllers\GetEmployeesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,9 +24,10 @@ use App\Http\Controllers\CitiesController;
     return $request->user();
 }); */
 
-Route::resource('employees', EmployeesController::class);
 
+Route::resource('employees', EmployeesController::class);
 Route::get('/departments', [DepartmentsController::class, 'indexJson']);
 Route::get('/countries', [CountriesController::class, 'indexJson']);
 Route::get('/states', [StatesController::class, 'indexJson']);
 Route::get('/cities', [CitiesController::class, 'indexJson']);
+Route::get('/all-employees', GetEmployeesController::class);

@@ -32,7 +32,7 @@ State | System Management
           <tr>
             <td class="py-3 text-left text-gray-500">{{ $state->id }}</td>
             <td class="py-3 text-left text-gray-500">{{ $state->name }}</td>
-            <td class="py-3 text-left text-gray-500">{{ $state->get_country->name }}</td>
+            <td class="py-3 text-left text-gray-500">{{ $state->get_country()->withTrashed()->pluck('name')[0]}}</td>
             <td class="py-3 text-left text-gray-500">{{ $state->created_at ? $state->created_at->format('Y-m-d') : '' }}</td>
           <td class="py-3 text-left text-gray-500">{{ $state->updated_at ? $state->updated_at->format('Y-m-d') : '' }}</td>
           <td class="py-3 text-center text-gray-500">{{ $state->deleted_at ? $state->deleted_at->format('Y-m-d') : 'never' }}</td>

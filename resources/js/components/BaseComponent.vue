@@ -202,19 +202,19 @@
           </div>
           <div class="flex">
             <div class="w-1/3 text-gray-500 text-lg">Department</div>
-            <div class="w-2/3 text-gray-500 text-lg">{{ employee.department.name }}</div>
+            <div class="w-2/3 text-gray-500 text-lg">{{ employee.department ? employee.department.name : '' }}</div>
           </div>
           <div class="flex">
             <div class="w-1/3 text-gray-500 text-lg">City</div>
-            <div class="w-2/3 text-gray-500 text-lg">{{ employee.city.name }}</div>
+            <div class="w-2/3 text-gray-500 text-lg">{{ employee.city ? employee.city.name : '' }}</div>
           </div>
           <div class="flex">
             <div class="w-1/3 text-gray-500 text-lg">State</div>
-            <div class="w-2/3 text-gray-500 text-lg">{{ employee.state.name }}</div>
+            <div class="w-2/3 text-gray-500 text-lg">{{ employee.state ? employee.state.name : '' }}</div>
           </div>
           <div class="flex">
             <div class="w-1/3 text-gray-500 text-lg">Country</div>
-            <div class="w-2/3 text-gray-500 text-lg">{{ employee.country.name }}</div>
+            <div class="w-2/3 text-gray-500 text-lg">{{ employee.country ? employee.country.name : '' }}</div>
           </div>
           <div class="flex">
             <div class="w-1/3 text-gray-500 text-lg">Zip</div>

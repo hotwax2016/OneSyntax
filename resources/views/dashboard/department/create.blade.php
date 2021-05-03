@@ -12,7 +12,7 @@ New department | System Management
 			@csrf
 			<div class="flex w-full">
 				<div class="flex-col w-full pr-2">
-					<label class="block w-full pl-1 text-md text-gray-600" for="">Department name</label>
+					<label class="block w-full pl-1 text-md text-gray-600" for="">*Department name</label>
 					<input class="block w-full mt-1 p-2 text-gray-500 border rounded-lg shadow-sm" type="text" name="name" value="{{old('name')}}">
 					@error('name')
 					<span class="text-sm text-red-400">{{ $errors->first('name') }}</span>

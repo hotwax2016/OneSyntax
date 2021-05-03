@@ -12,9 +12,9 @@ Add state | System Management
 			@csrf
 			<div class="flex w-full">
 				<div class="flex-col w-full pr-2">
-					<label class="block w-full pl-1 text-md text-gray-600" for="">Country</label>
-					<select class="w-full px-2 py-2 border rounded-md bg-white text-gray-600">
-						<option value="" disabled selected>Choose Country</option>
+					<label class="block w-full pl-1 text-md text-gray-600" for="">*Country</label>
+					<select class="w-full px-2 py-2 border rounded-md bg-white text-gray-600" name="country">
+						<option disabled selected>Choose Country</option>
 						@forelse ($countries as $country)
 						<option value="{{ $country->id }}">
 							{{ $country->name }}
@@ -22,12 +22,12 @@ Add state | System Management
 						@empty
 						@endforelse
 					</select>
-					@error('country_code')
-						<span class="text-sm text-red-400">{{ $errors->first('country_code') }}</span>
+					@error('country')
+						<span class="text-sm text-red-400">{{ $errors->first('country') }}</span>
 					@enderror
 				</div>
 				<div class="flex-col w-full pl-2">
-					<label class="block w-full pl-1 text-md text-gray-600" for="">Name</label>
+					<label class="block w-full pl-1 text-md text-gray-600" for="">*Name</label>
 					<input class="block w-full mt-1 p-2 text-gray-500 border rounded-lg shadow-sm" type="text" name="name" value="{{old('name')}}">
 					@error('name')
 					<span class="text-sm text-red-400">{{ $errors->first('name') }}</span>
