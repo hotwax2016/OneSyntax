@@ -32,7 +32,7 @@ City | System Management
           <tr>
             <td class="py-3 text-left text-gray-500">{{ $city->id }}</td>
             <td class="py-3 text-left text-gray-500">{{ $city->name }}</td>
-            <td class="py-3 text-left text-gray-500">{{ $city->get_state->name }}</td>
+            <td class="py-3 text-left text-gray-500">{{ $city->get_state()->withTrashed()->pluck('name')[0] }}</td>
             <td class="py-3 text-left text-gray-500">{{ $city->created_at ? $city->created_at->format('Y-m-d') : '' }}</td>
           <td class="py-3 text-left text-gray-500">{{ $city->updated_at ? $city->updated_at->format('Y-m-d') : '' }}</td>
           <td class="py-3 text-center text-gray-500">{{ $city->deleted_at ? $city->deleted_at->format('Y-m-d') : 'never' }}</td>

@@ -109,7 +109,8 @@ class CountriesController extends Controller
      */
     public function destroy(Country $country)
     {
-        $country->delete();
+        /* $country->delete(); */
+        $country->truncated();
 
         return redirect('/countries');
     }
