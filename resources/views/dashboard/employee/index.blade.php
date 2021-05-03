@@ -6,6 +6,6 @@ Employee Management
 
 @section('main')
 <div id="app">
-    <test-component></test-component>
+    <base-component></base-component>
 </div>
 @endsection

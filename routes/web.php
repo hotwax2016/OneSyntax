@@ -7,8 +7,8 @@ use App\Http\Controllers\CountriesController;
 use App\Http\Controllers\StatesController;
 use App\Http\Controllers\CitiesController;
 use App\Http\Controllers\DepartmentsController;
-use App\Http\Controllers\EmployeesController;
 use App\Http\Controllers\ChangePasswordController;
+use App\Http\Controllers\EmployeesController;
 
 
 /*
@@ -36,4 +36,5 @@ Route::resource('countries', CountriesController::class);
 Route::resource('states', StatesController::class);
 Route::resource('cities', CitiesController::class);
 Route::resource('departments', DepartmentsController::class);
-Route::resource('employees', EmployeesController::class);
+
+Route::get('/employees', [EmployeesController::class, 'getPage']);

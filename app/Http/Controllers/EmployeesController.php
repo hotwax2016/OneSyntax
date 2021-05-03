@@ -12,11 +12,16 @@ class EmployeesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getPage()
+    {
+        return view('dashboard.employee.index');
+    }
     public function index()
     {
-        $employees = Employee::all();
+        $employees = Employee::with('department', 'city', 'state', 'country')->get();
 
-        return view('dashboard.employee.index');
+        return response()->json($employees);
     }
 
     /**

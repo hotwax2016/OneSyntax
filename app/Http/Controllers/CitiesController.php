@@ -47,7 +47,7 @@ class CitiesController extends Controller
 
         State::find(request('state'))->cities()->create($data);
 
-        return redirect(route('cities.index'));
+        return redirect()->back();
     }
 
     /**
