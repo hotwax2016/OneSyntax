@@ -10,6 +10,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="js/app.js"></script>
 
     <!-- Fonts -->
     <!--
@@ -30,7 +31,7 @@
             <div class="pt-5 px-4">
                 <ul>
                     <li class="px-2 py-3 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer"><a href="/dashboard">Dashboard</a></li>
-                    <li class="px-2 py-3 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer">Employee Management</li>
+                    <li class="px-2 py-3 text-md font-semibold hover:bg-blue-200 hover:text-blue-500 rounded-md cursor-pointer"><a href="/employees">Employee Management</a></li>
                     <li class="px-2 py-3 text-md font-semibold hover:text-blue-100 rounded-md cursor-pointer">System Management</li>
                     <li>
                         <ul>

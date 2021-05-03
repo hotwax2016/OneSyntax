@@ -16,7 +16,7 @@ class EmployeesController extends Controller
     {
         $employees = Employee::all();
 
-        return view('dashboard.employee.index', compact('employees'));
+        return view('dashboard.employee.index');
     }
 
     /**
