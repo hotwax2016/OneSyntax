@@ -16,11 +16,9 @@ class StatesController extends Controller
     public function index()
     {
         if (request('state')) {
-            $states = State::withTrashed()
-                        ->where('name', request('state'))
-                        ->get();
+            $states = State::where('name', request('state'))->get();
         } else {
-            $states = State::withTrashed()->get();
+            $states = State::all();
         }
 
         return view('dashboard.state.index', compact('states'));

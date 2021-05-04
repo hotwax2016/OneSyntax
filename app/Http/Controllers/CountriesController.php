@@ -15,11 +15,10 @@ class CountriesController extends Controller
     public function index()
     {
         if (request('country')) {
-            $countries = Country::withTrashed()
-                        ->where('name', request('country'))
+            $countries = Country::where('name', request('country'))
                         ->get();
         } else {
-            $countries = Country::withTrashed()->get();
+            $countries = Country::all();
         }
         
         return view('dashboard.country.index', compact('countries'));
@@ -27,7 +26,7 @@ class CountriesController extends Controller
 
     public function indexJson()
     {
-        $countries = Country::withTrashed()->get();
+        $countries = Country::all();
 
         return response()->json($countries);
     }
@@ -109,8 +108,7 @@ class CountriesController extends Controller
      */
     public function destroy(Country $country)
     {
-        /* $country->delete(); */
-        $country->truncated();
+        $country->delete();
 
         return redirect('/countries');
     }

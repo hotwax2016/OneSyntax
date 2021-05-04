@@ -15,11 +15,10 @@ class DepartmentsController extends Controller
     public function index()
     {
         if (request('department')) {
-            $departments = Department::withTrashed()
-                        ->where('name', request('department'))
+            $departments = Department::where('name', request('department'))
                         ->get();
         } else {
-            $departments = Department::withTrashed()->get();
+            $departments = Department::all();
         }
 
         return view('dashboard.department.index', compact('departments'));

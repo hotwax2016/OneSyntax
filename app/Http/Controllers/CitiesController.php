@@ -16,11 +16,9 @@ class CitiesController extends Controller
     public function index()
     {
         if (request('city')) {
-            $cities = City::withTrashed()
-                        ->where('name', request('city'))
-                        ->get();
+            $cities = City::where('name', request('city'))->get();
         } else {
-            $cities = City::withTrashed()->get();
+            $cities = City::all();
         }
 
         return view('dashboard.city.index', compact('cities'));
@@ -28,7 +26,7 @@ class CitiesController extends Controller
 
     public function indexJson()
     {
-        $cities = City::withTrashed()->get();
+        $cities = City::all();
 
         return response()->json($cities);
     }
