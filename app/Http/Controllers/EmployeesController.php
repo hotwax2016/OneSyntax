@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
+
 class EmployeesController extends Controller
 {
     /**
@@ -12,11 +13,18 @@ class EmployeesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function getPage()
+    {
+        return view('dashboard.employee.index');
+    }
     public function index()
     {
-        $employees = Employee::all();
+        $employees = Employee::withTrashed()
+                        ->with('department', 'city', 'state', 'country')
+                        ->get();
 
-        return view('dashboard.employee.index', compact('employees'));
+        return response()->json($employees);
     }
 
     /**
@@ -24,10 +32,10 @@ class EmployeesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    /* public function create()
     {
         return view('dashboard.employee.create');
-    }
+    } */
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +45,7 @@ class EmployeesController extends Controller
      */
     public function store(Request $request)
     {
-        $data = request()->validate([
+        /* $data = request()->validate([
             'lastname' => 'required|string|max:60',
             'firstname' => 'required|string|max:6',
             'middlename' => 'string|max:60',
@@ -49,11 +57,11 @@ class EmployeesController extends Controller
             'zip' => 'required|int|max:10',
             'birthdate' => 'date',
             'date_hired' => 'date'
-        ]);
+        ]); */
 
-        Employee::create($data);
+        $employee = Employee::create(request()->all());
 
-        return redirect(route('employees.index'));
+        return response('user created', 200);;
     }
 
     /**
@@ -73,10 +81,10 @@ class EmployeesController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function edit(Employee $employee)
+    /* public function edit(Employee $employee)
     {
         return view('dashboard.employee.edit', compact('employee'));
-    }
+    } */
 
     /**
      * Update the specified resource in storage.
@@ -87,7 +95,7 @@ class EmployeesController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        $data = request()->validate([
+        /* $data = request()->validate([
             'lastname' => 'required|string|max:60',
             'firstname' => 'required|string|max:6',
             'middlename' => 'string|max:60',
@@ -99,9 +107,11 @@ class EmployeesController extends Controller
             'zip' => 'required|int|max:10',
             'birthdate' => 'date',
             'date_hired' => 'date'
-        ]);
+        ]); */
 
         $employee->update($data);
+
+        return response('update complete', 200);
     }
 
     /**
@@ -112,6 +122,8 @@ class EmployeesController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $employee->delate();
+
+        $employee->delete();
+        return response('ok');
     }
 }

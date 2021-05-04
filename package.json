@@ -25,5 +25,10 @@
         "vue": "^2.6.12",
         "vue-loader": "^15.9.6",
         "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "-": "0.0.1",
+        "save": "^2.4.0",
+        "vue-router": "^3.5.1"
     }
 }

@@ -15,9 +15,20 @@ class StatesController extends Controller
      */
     public function index()
     {
-        $states = State::all();
+        if (request('state')) {
+            $states = State::where('name', request('state'))->get();
+        } else {
+            $states = State::all();
+        }
 
         return view('dashboard.state.index', compact('states'));
+    }
+
+    public function indexJson()
+    {
+        $states = State::all();
+
+        return response()->json($states);
     }
 
     /**

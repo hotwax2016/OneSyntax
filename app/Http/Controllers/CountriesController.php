@@ -14,9 +14,21 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        $countries = Country::all();
+        if (request('country')) {
+            $countries = Country::where('name', request('country'))
+                        ->get();
+        } else {
+            $countries = Country::all();
+        }
         
         return view('dashboard.country.index', compact('countries'));
+    }
+
+    public function indexJson()
+    {
+        $countries = Country::all();
+
+        return response()->json($countries);
     }
 
     /**

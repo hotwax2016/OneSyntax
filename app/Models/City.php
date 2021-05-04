@@ -13,6 +13,8 @@ class City extends Model
 
     protected $fillable = ['state', 'name'];
 
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
     public function employees()
     {
         return $this->hasMany(Employee::class);

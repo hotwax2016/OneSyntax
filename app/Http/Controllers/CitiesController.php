@@ -15,9 +15,20 @@ class CitiesController extends Controller
      */
     public function index()
     {
-        $cities = City::all();
+        if (request('city')) {
+            $cities = City::where('name', request('city'))->get();
+        } else {
+            $cities = City::all();
+        }
 
         return view('dashboard.city.index', compact('cities'));
+    }
+
+    public function indexJson()
+    {
+        $cities = City::all();
+
+        return response()->json($cities);
     }
 
     /**
@@ -47,7 +58,7 @@ class CitiesController extends Controller
 
         State::find(request('state'))->cities()->create($data);
 
-        return redirect(route('cities.index'));
+        return redirect()->back();
     }
 
     /**

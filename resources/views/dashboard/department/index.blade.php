@@ -6,24 +6,34 @@ Department | System Management
 
 @section('main')
 <div class="pb-5">
-  <div>
-    <h2 class="text-lg">User search goes here</h2>
+  <div class="w-2/3 mx-auto">
+    <form method="GET" action="/departments">
+      <input class="w-full px-4 py-2 text-gray-500 rounded-full" name="department" type="text" placeholder="Enter department name to search">
+    </form>
   </div>
-  <div class="mt-16 w-2/3 mx-auto">
+  <div class="mt-10 mx-auto">
     <a class="px-2 py-3 bg-blue-500 text-blue-200 font-semibold tracking-wide rounded-md hover:bg-blue-600 hover:text-blue-100" href="/departments/create">Add Department</a>
   </div>
-  <div class="flex justify-center w-2/3 mx-auto bg-blue-50 px-4 pb-4 mt-4 border rounded-md shadow">
-    <table class="w-2/3">
+  <div class="flex justify-center mx-auto bg-white px-4 pb-4 mt-4 border rounded-md shadow">
+    <table class="w-full">
       <thead>
         <tr>
+          <th class="py-4 text-left text-gray-500">ID</th>
           <th class="py-4 text-left text-gray-500">Name</th>
+          <th class="py-4 text-left text-gray-500">Created at</th>
+          <th class="py-4 text-left text-gray-500">Updated at</th>
+          <th class="py-4 text-left text-gray-500">Deleted at</th>
           <th class="py-4 text-left text-gray-500" colspan="2">Actions</th>
         </tr>
       </thead>
       <tbody  class="divide-y">
         @forelse ($departments as $department)
           <tr>
+            <td class="py-3 text-left text-gray-500">{{ $department->id }}</td>
             <td class="py-3 text-left text-gray-500">{{ $department->name }}</td>
+            <td class="py-3 text-left text-gray-500">{{ $department->created_at ? $department->created_at->format('Y-m-d') : '' }}</td>
+          <td class="py-3 text-left text-gray-500">{{ $department->updated_at ? $department->updated_at->format('Y-m-d') : '' }}</td>
+          <td class="py-3 text-center text-gray-500">{{ $department->deleted_at ? $department->deleted_at->format('Y-m-d') : 'never' }}</td>
             <td class="flex justify-center items-center py-3 text-blue-500">
               <a href="/departments/{{ $department->id }}/edit">
                 <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">

@@ -16,6 +16,11 @@
 
 <script>
     export default {
+        data() {
+    return {
+      test: "this is test"
+    }
+  },
         mounted() {
             console.log('Component mounted.')
         }

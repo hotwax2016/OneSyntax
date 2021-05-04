@@ -14,9 +14,21 @@ class DepartmentsController extends Controller
      */
     public function index()
     {
-        $departments = Department::all();
+        if (request('department')) {
+            $departments = Department::where('name', request('department'))
+                        ->get();
+        } else {
+            $departments = Department::all();
+        }
 
         return view('dashboard.department.index', compact('departments'));
+    }
+
+    public function indexJson()
+    {
+        $departments = Department::all();
+
+        return response()->json($departments);
     }
 
     /**

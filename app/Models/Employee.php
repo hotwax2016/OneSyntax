@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Department;
 use App\Models\City;
@@ -11,7 +12,7 @@ use App\Models\Country;
 
 class Employee extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'lastname',
@@ -25,6 +26,13 @@ class Employee extends Model
         'zip',
         'birthdate',
         'date_hired',
+    ];
+
+    protected $dates = [
+        'created_at', 
+        'updated_at', 
+        'deleted_at', 
+        'date_hired'
     ];
 
     public function department()

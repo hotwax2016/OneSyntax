@@ -11,7 +11,7 @@ Add New User | User Management
 		<form method="POST" action="/users" class="space-y-4">
 			@csrf
 			<div class="flex-col">
-				<label class="block pl-1 text-md text-gray-600" for="">Username</label>
+				<label class="block pl-1 text-md text-gray-600" for="">*Username</label>
 				<input class="block p-2 text-gray-500 border rounded-lg shadow-sm w-2/3" type="text" name="username" value="{{old('username')}}">
 				@error('username')
 					<span class="text-sm text-red-400">{{ $errors->first('username') }}</span>
@@ -19,14 +19,14 @@ Add New User | User Management
 			</div>
 			<div class="flex w-full">
 				<div class="flex-col w-full pr-2">
-					<label class="block w-full pl-1 text-md text-gray-600" for="">Firstname</label>
+					<label class="block w-full pl-1 text-md text-gray-600" for="">*Firstname</label>
 					<input class="block w-full mt-1 p-2 text-gray-500 border rounded-lg shadow-sm" type="text" name="firstname" value="{{old('firstname')}}">
 					@error('firstname')
 					<span class="text-sm text-red-400">{{ $errors->first('firstname') }}</span>
 				@enderror
 				</div>
 				<div class="flex-col w-full pl-2">
-					<label class="block w-full pl-1 text-md text-gray-600" for="">Lastname</label>
+					<label class="block w-full pl-1 text-md text-gray-600" for="">*Lastname</label>
 					<input class="block w-full mt-1 p-2 text-gray-500 border rounded-lg shadow-sm" type="text" name="lastname" value="{{old('lastname')}}">
 					@error('lastname')
 					<span class="text-sm text-red-400">{{ $errors->first('lastname') }}</span>
@@ -34,21 +34,21 @@ Add New User | User Management
 				</div>
 			</div>
 			<div class="flex-col">
-				<label class="block pl-1 text-md text-gray-600" for="">Email</label>
+				<label class="block pl-1 text-md text-gray-600" for="">*Email</label>
 				<input class="block p-2 text-gray-500 border rounded-lg shadow-sm w-2/3" type="email" name="email" value="{{old('email')}}">
 				@error('email')
 					<span class="text-sm text-red-400">{{ $errors->first('email') }}</span>
 				@enderror
 			</div>
 			<div class="flex-col">
-				<label class="block pl-1 text-md text-gray-600" for="">Password</label>
+				<label class="block pl-1 text-md text-gray-600" for="">*Password</label>
 				<input class="block p-2 text-gray-500 border rounded-lg shadow-sm w-2/3" type="password" name="password">
 				@error('password')
 					<span class="text-sm text-red-400">{{ $errors->first('password') }}</span>
 				@enderror
 			</div>
 			<div class="flex-col">
-				<label class="block pl-1 text-md text-gray-600" for="">Re-enter Password</label>
+				<label class="block pl-1 text-md text-gray-600" for="">*Re-enter Password</label>
 				<input class="block p-2 text-gray-500 border rounded-lg shadow-sm w-2/3" type="password" name="password_confirmation">
 			</div>
 			<div class="space-x-4">
